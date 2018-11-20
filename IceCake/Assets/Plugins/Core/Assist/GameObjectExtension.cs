@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace IceCake.Core
 {
-    public static class Extension
+    public static class GameObjectExtension
     {
         public static void ResetTransform(this GameObject go)
         {
