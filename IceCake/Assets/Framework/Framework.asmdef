@@ -1,10 +1,11 @@
 {
-    "name": "Core",
+    "name": "NewAssembly",
     "references": [
-        "ThridLib"
+        "ThridLib",
+        "Core"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": true
 }
