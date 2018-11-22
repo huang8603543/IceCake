@@ -33,11 +33,11 @@ namespace IceCake.Core
             {
                 foreach (var type in assembly.GetTypes())
                 {
-                    foreach (var typeSearchSunClass in typeSearchSubClasses)
+                    foreach (var typeSearchSubClass in typeSearchSubClasses)
                     {
-                        if (typeSearchSunClass.Key.IsAssignableFrom(type) && !type.IsApplyAttr(typeSearchSunClass.Value, true))
+                        if (typeSearchSubClass.Key.IsAssignableFrom(type) && !type.IsApplyAttr(typeSearchSubClass.Value, true))
                         {
-                            ReceiveTypeList(typeSearchSunClass.Key).Add(type);
+                            ReceiveTypeList(typeSearchSubClass.Key).Add(type);
                         }
                     }
                 }
@@ -63,7 +63,7 @@ namespace IceCake.Core
 
         protected List<Type> ReceiveTypeList(Type type)
         {
-            if (searchTypes.ContainsKey(type))
+            if (!searchTypes.ContainsKey(type))
                 searchTypes.Add(type, new List<Type>());
 
             return (List<Type>)searchTypes[type];

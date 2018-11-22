@@ -4,7 +4,6 @@ using System;
 
 namespace IceCake.Framework.AssetBundles
 {
-    [Serializable]
     public partial class ABVersionData : SerializerBinary
     {
         public string N;

@@ -47,10 +47,10 @@ namespace IceCake.Core.Serializer.Editor
                 if (memberInfo.IsDefined(typeof(SBDynamicAttribute), true) &&
                     !SerializerAssists.IsBaseType(SerializerAssists.GetMemberType(memberInfo), false))
                     StringBuilder?
-                        .Tab(3).Format("rWriter.SerializeDynamic({0});", paramText).Line();
+                        .Tab(3).Format("writer.SerializeDynamic({0});", paramText).Line();
                 else
                     StringBuilder?
-                        .Tab(3).Format("rWriter.Serialize({0});", paramText).Line();
+                        .Tab(3).Format("writer.Serialize({0});", paramText).Line();
             }
             StringBuilder
                 .Tab(2).Append("}").Line();
@@ -69,10 +69,10 @@ namespace IceCake.Core.Serializer.Editor
                 if (memberInfo.IsDefined(typeof(SBDynamicAttribute), false) &&
                     !SerializerAssists.IsBaseType(SerializerAssists.GetMemberType(memberInfo), false))
                     this.StringBuilder
-                        .Tab(3).Format("this.{0} = {1}rReader.DeserializeDynamic({2});", memberInfo.Name, memberText, memberDummyText).Line();
+                        .Tab(3).Format("this.{0} = {1}reader.DeserializeDynamic({2});", memberInfo.Name, memberText, memberDummyText).Line();
                 else
                     this.StringBuilder
-                        .Tab(3).Format("this.{0} = {1}rReader.Deserialize({2});", memberInfo.Name, memberText, memberDummyText).Line();
+                        .Tab(3).Format("this.{0} = {1}reader.Deserialize({2});", memberInfo.Name, memberText, memberDummyText).Line();
             }
             StringBuilder
                     .Tab(2).Append("}").Line()

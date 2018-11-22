@@ -23,8 +23,8 @@ namespace IceCake.Core.Serializer.Editor
                 EditorUtility.DisplayProgressBar("AutoCSGenerate", text, progress);
             });
 
-            generatePathRoot = "Assets/Game/Script/Generate/SerializerBinary/";
-            Instance.Analysis(generatePathRoot, "Framework", (text, progress) =>
+            generatePathRoot = "Assets/Game/Metal/Script/Generate/SerializerBinary/";
+            Instance.Analysis(generatePathRoot, "Game", (text, progress) =>
             {
                 EditorUtility.DisplayProgressBar("AutoCSGenerate", text, progress);
             });

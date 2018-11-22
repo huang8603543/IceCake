@@ -74,28 +74,28 @@ namespace IceCake.Core.Serializer.Editor
             var tdeText = dynamic && !SerializerAssists.IsBaseType(elementType, false) ? "Dynamic" : string.Empty;
 
             StringBuilder?
-                .Tab(2).Format("public static void Serialize{0}(this BinaryWriter rWriter, {1} value)", tdText, typeName).Line()
+                .Tab(2).Format("public static void Serialize{0}(this BinaryWriter writer, {1} value)", tdText, typeName).Line()
                 .Tab(2).Append("{").Line()
                     .Tab(3).Append("var bValid = (null != value);").Line()
-                    .Tab(3).Append("rWriter.Serialize(bValid);").Line()
+                    .Tab(3).Append("writer.Serialize(bValid);").Line()
                     .Tab(3).Append("if (!bValid) return;").Line()
                     .Lines(1)
-                    .Tab(3).Append("rWriter.Serialize(value.Length);").Line()
+                    .Tab(3).Append("writer.Serialize(value.Length);").Line()
                     .Tab(3).Append("for (int nIndex = 0; nIndex < value.Length; nIndex++)").Line()
-                        .Tab(4).Format("rWriter.Serialize{0}({1});", tdeText, (elementType.IsEnum ? "(int)value[nIndex]" : "value[nIndex]")).Line()
+                        .Tab(4).Format("writer.Serialize{0}({1});", tdeText, (elementType.IsEnum ? "(int)value[nIndex]" : "value[nIndex]")).Line()
                 .Tab(2).Append("}").Line()
                 .Lines(1);
 
             StringBuilder?
-                .Tab(2).Format("public static {0} Deserialize(this BinaryReader rReader, {1} value)", typeName, typeName).Line()
+                .Tab(2).Format("public static {0} Deserialize(this BinaryReader reader, {1} value)", typeName, typeName).Line()
                 .Tab(2).Append("{").Line()
-                    .Tab(3).Append("var bValid = rReader.Deserialize(default(bool));").Line()
+                    .Tab(3).Append("var bValid = reader.Deserialize(default(bool));").Line()
                     .Tab(3).Append("if (!bValid) return null;").Line()
                     .Lines(1)
-                    .Tab(3).Append("var nCount  = rReader.Deserialize(default(int));").Line()
+                    .Tab(3).Append("var nCount  = reader.Deserialize(default(int));").Line()
                     .Tab(3).Format("var rResult = new {0};", typeName.Insert(typeName.IndexOf('[') + 1, "nCount")).Line()
                     .Tab(3).Append("for (int nIndex = 0; nIndex < nCount; nIndex++)").Line()
-                        .Tab(4).Format("rResult[nIndex] = {0}rReader.Deserialize{1}({2});",
+                        .Tab(4).Format("rResult[nIndex] = {0}reader.Deserialize{1}({2});",
                             (elementType.IsEnum ? string.Format("({0})", elementType.FullName) : string.Empty),
                             tdeText,
                             SerializerAssists.GetDeserializeUnwrap(elementType)).Line()
@@ -116,28 +116,28 @@ namespace IceCake.Core.Serializer.Editor
             var tdeText = dynamic && !SerializerAssists.IsBaseType(elementType, false) ? "Dynamic" : string.Empty;
 
             StringBuilder?
-                .Tab(2).Format("public static void Serialize{0}(this BinaryWriter rWriter, {1} value)", tdText, typeName).Line()
+                .Tab(2).Format("public static void Serialize{0}(this BinaryWriter writer, {1} value)", tdText, typeName).Line()
                 .Tab(2).Append("{").Line()
                     .Tab(3).Append("var bValid = (null != value);").Line()
-                    .Tab(3).Append("rWriter.Serialize(bValid);").Line()
+                    .Tab(3).Append("writer.Serialize(bValid);").Line()
                     .Tab(3).Append("if (!bValid) return;").Line()
                     .Lines(1)
-                    .Tab(3).Append("rWriter.Serialize(value.Count);").Line()
+                    .Tab(3).Append("writer.Serialize(value.Count);").Line()
                     .Tab(3).Append("for (int nIndex = 0; nIndex < value.Count; ++ nIndex)").Line()
-                        .Tab(4).Format("rWriter.Serialize{0}({1});", tdeText, (elementType.IsEnum ? "(int)value[nIndex]" : "value[nIndex]")).Line()
+                        .Tab(4).Format("writer.Serialize{0}({1});", tdeText, (elementType.IsEnum ? "(int)value[nIndex]" : "value[nIndex]")).Line()
                 .Tab(2).Append("}").Line()
                 .Lines(1);
 
             StringBuilder?
-                .Tab(2).Format("public static {0} Deserialize{1}(this BinaryReader rReader, {2} value)", typeName, tdText, typeName).Line()
+                .Tab(2).Format("public static {0} Deserialize{1}(this BinaryReader reader, {2} value)", typeName, tdText, typeName).Line()
                 .Tab(2).Append("{").Line()
-                    .Tab(3).Append("var bValid = rReader.Deserialize(default(bool));").Line()
+                    .Tab(3).Append("var bValid = reader.Deserialize(default(bool));").Line()
                     .Tab(3).Append("if (!bValid) return null;").Line()
                     .Lines(1)
-                    .Tab(3).Append("var nCount  = rReader.Deserialize(default(int));").Line()
+                    .Tab(3).Append("var nCount  = reader.Deserialize(default(int));").Line()
                     .Tab(3).Format("var rResult = new {0}(nCount);", typeName).Line()
                     .Tab(3).Append("for (int nIndex = 0; nIndex < nCount; nIndex++)").Line()
-                        .Tab(4).Format("rResult.Add({0}rReader.Deserialize{1}({2}));",
+                        .Tab(4).Format("rResult.Add({0}reader.Deserialize{1}({2}));",
                             (elementType.IsEnum ? string.Format("({0})", elementType.FullName) : string.Empty),
                             tdeText,
                             SerializerAssists.GetDeserializeUnwrap(type.GetGenericArguments()[0])).Line()
@@ -160,36 +160,36 @@ namespace IceCake.Core.Serializer.Editor
             var tdvText = dynamic && !SerializerAssists.IsBaseType(valueType, false) ? "Dynamic" : string.Empty;
 
             StringBuilder?
-                .Tab(2).Format("public static void Serialize{0}(this BinaryWriter rWriter, {1} value)", tdText, typeName).Line()
+                .Tab(2).Format("public static void Serialize{0}(this BinaryWriter writer, {1} value)", tdText, typeName).Line()
                 .Tab(2).Append("{").Line()
                     .Tab(3).Append("var bValid = (null != value);").Line()
-                    .Tab(3).Append("rWriter.Serialize(bValid);").Line()
+                    .Tab(3).Append("writer.Serialize(bValid);").Line()
                     .Tab(3).Append("if (!bValid) return;").Line()
                     .Lines(1)
-                    .Tab(3).Append("rWriter.Serialize(value.Count);").Line()
+                    .Tab(3).Append("writer.Serialize(value.Count);").Line()
                     .Tab(3).Append("foreach(var rPair in value)").Line()
                     .Tab(3).Append("{").Line()
-                        .Tab(4).Format("rWriter.Serialize{0}({1});", tdkText, (keyType.IsEnum ? "(int)rPair.Key" : "rPair.Key")).Line()
-                        .Tab(4).Format("rWriter.Serialize{0}({1});", tdvText, (valueType.IsEnum ? "(int)rPair.Value" : "rPair.Value")).Line()
+                        .Tab(4).Format("writer.Serialize{0}({1});", tdkText, (keyType.IsEnum ? "(int)rPair.Key" : "rPair.Key")).Line()
+                        .Tab(4).Format("writer.Serialize{0}({1});", tdvText, (valueType.IsEnum ? "(int)rPair.Value" : "rPair.Value")).Line()
                     .Tab(3).Append("}").Line()
                 .Tab(2).Append("}").Line()
                 .Lines(1);
 
             StringBuilder?
-                .Tab(2).Format("public static {0} Deserialize{1}(this BinaryReader rReader, {2} value)", typeName, tdText, typeName).Line()
+                .Tab(2).Format("public static {0} Deserialize{1}(this BinaryReader reader, {2} value)", typeName, tdText, typeName).Line()
                 .Tab(2).Append("{").Line()
-                    .Tab(3).Append("var bValid = rReader.Deserialize(default(bool));").Line()
+                    .Tab(3).Append("var bValid = reader.Deserialize(default(bool));").Line()
                     .Tab(3).Append("if (!bValid) return null;").Line()
                     .Lines(1)
-                    .Tab(3).Append("var nCount  = rReader.Deserialize(default(int));").Line()
+                    .Tab(3).Append("var nCount  = reader.Deserialize(default(int));").Line()
                     .Tab(3).Format("var rResult = new {0}();", typeName).Line()
                     .Tab(3).Append("for (int nIndex = 0; nIndex < nCount; ++ nIndex)").Line()
                     .Tab(3).Append("{").Line()
-                        .Tab(4).Format("var rKey   = {0}rReader.Deserialize{1}({2});",
+                        .Tab(4).Format("var rKey   = {0}reader.Deserialize{1}({2});",
                             (keyType.IsEnum ? string.Format("({0})", keyType.FullName) : string.Empty),
                             tdkText,
                             SerializerAssists.GetDeserializeUnwrap(keyType)).Line()
-                        .Tab(4).Format("var rValue = {0}rReader.Deserialize{1}({2});",
+                        .Tab(4).Format("var rValue = {0}reader.Deserialize{1}({2});",
                             (valueType.IsEnum ? string.Format("({0})", valueType.FullName) : string.Empty),
                             tdvText,
                             SerializerAssists.GetDeserializeUnwrap(valueType)).Line()
