@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System;
 
 namespace IceCake.Core
@@ -9,7 +7,7 @@ namespace IceCake.Core
     public class TSIgnoreAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = true)]
-    public class TSIgnoreInheritedAttribute : Attribute { }
+    public class TSIgnoreInheritedAttribute : TSIgnoreAttribute { }
 
     [AttributeUsage(AttributeTargets.Field)]
     public class TypeSearchAttribute :Attribute
@@ -25,12 +23,12 @@ namespace IceCake.Core
             TypeSearchType = typeSearch;
         }
 
-        //public List<string> TypeFullNames
-        //{
-        //    get
-        //    {
-
-        //    }
-        //}
+        public List<string> TypeFullNames
+        {
+            get
+            {
+                return TypeSearchBase.GetTypeFullNames(TypeSearchType);
+            }
+        }
     }
 }
