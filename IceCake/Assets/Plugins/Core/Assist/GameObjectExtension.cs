@@ -12,5 +12,23 @@ namespace IceCake.Core
             go.transform.localRotation = Quaternion.identity;
             go.transform.localScale = Vector3.one;
         }
+
+        public static T SafeGetComponent<T>(this GameObject go) where T : Component
+        {
+            if (go == null)
+                return default(T);
+            return go.GetComponent<T>();
+        }
+
+        public static T ReceiveComponent<T>(this GameObject go) where T : Component
+        {
+            if (go == null)
+                return default(T);
+            T component = go.GetComponent<T>();
+            if (component == null)
+                component = go.AddComponent<T>();
+
+            return component;
+        }
     }
 }
