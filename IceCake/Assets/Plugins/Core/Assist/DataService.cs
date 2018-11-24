@@ -14,10 +14,10 @@ namespace IceCake.Core
         public DataService(string databaseName)
         {
 #if UNITY_EDITOR
-            var daPath = string.Format(@"Assets/StreamingAssets/DB{0}", databaseName);
+            var daPath = string.Format(@"Assets/StreamingAssets/DB/{0}", databaseName);
 #else
 #endif
-            connection = new SQLiteConnection(daPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+            //connection = new SQLiteConnection(daPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
         }
 
         public abstract void CreateDB<T>();

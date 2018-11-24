@@ -53,15 +53,23 @@ namespace IceCake.Framework.AssetBundles.Editor
             if (!dirInfo.Exists)
                 dirInfo.Create();
 
-            //
-            //
+            var oldABVersion = ABVersionEditor.Load(abPath);
+            var oldMD5 = ABVersionEditor.GetMD5ForABVersion(abPath);
 
             //开始打包//
             var newABManifest = BuildPipeline.BuildAssetBundles(abPath, abbList.ToArray(), options, (BuildTarget)CurBuildPlatform);
 
             //生成新的版本文件//
-            //
-            //
+            var newABVersion = ABVersionEditor.CreateVersion(abPath, oldABVersion, newABManifest);
+            newABVersion.SaveInEditor(abPath);
+
+            var newMD5 = ABVersionEditor.GetMD5ForABVersion(abPath);
+
+            //保存历史的版本记录//
+            if (!string.IsNullOrEmpty(oldMD5) && !oldMD5.Equals(newMD5))
+            {
+                oldABVersion.SaveHistory(abPath);
+            }
 
             Debug.Log("资源打包完成！");
         }
@@ -108,7 +116,7 @@ namespace IceCake.Framework.AssetBundles.Editor
         public List<ABData> GenerateABDatas()
         {
             var ABDataConfig = EditorAssists.ReceiveAsset<ABDataConfig>(ABDataConfigPath);
-            if (ABDataConfig = null)
+            if (ABDataConfig == null)
                 return new List<ABData>();
             return ABDataConfig.ABDatas;
         }
@@ -142,6 +150,23 @@ namespace IceCake.Framework.AssetBundles.Editor
         public string GetManifestName()
         {
             return GetCurrentBuildPlatformName() + "_Assetbundles";
+        }
+
+        public void UpdateAllAssetsABLabels(string abEntryConfigPath)
+        {
+            ABDatas = this.GenerateABDatas();
+            if (ABDatas == null) ABDatas = new List<ABData>();
+
+            //资源预处理//
+            List<ABDataProcessor> abEntryProcessors = new List<ABDataProcessor>();
+            foreach (var data in ABDatas)
+            {
+                ABDataProcessor processor = ABDataProcessor.Create(data);
+                processor.PreprocessAssets();
+                processor.ProcessAssetBundleLabel();
+                abEntryProcessors.Add(processor);
+            }
+            AssetDatabase.RemoveUnusedAssetBundleNames();
         }
     }
 }

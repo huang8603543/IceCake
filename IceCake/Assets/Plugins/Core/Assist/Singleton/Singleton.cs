@@ -5,11 +5,6 @@
         static T _instance;
         static object _lock = new object();
 
-        Singleton()
-        {
-
-        }
-
         public static T GetInstance()
         {
             if (_instance == null)

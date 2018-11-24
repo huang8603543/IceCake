@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c4f79ba5b03e64a87439b09421e37b, type: 3}
+  m_Name: AssetbundleSettings
+  m_EditorClassIdentifier: 
+  ABDatas:
+  - ABName: metal/scene
+    ABVariant: ab
+    AssetResPath: Assets/Game/Metal/Assets/Scene
+    AssetType: t:Scene
+    FilterAssets: []
+    AssetSrcType: 1
+    ABClassName: IceCake.Framework.AssetBundles.Editor.Processer
+    ABOriginalResPath: 
+  - ABName: metal/shader
+    ABVariant: ab
+    AssetResPath: Assets/Game/Metal/Assets/Shader
+    AssetType: t:Shader
+    FilterAssets: []
+    AssetSrcType: 2
+    ABClassName: IceCake.Framework.AssetBundles.Editor.Processer
+    ABOriginalResPath: 
+  - ABName: metal/font
+    ABVariant: ab
+    AssetResPath: Assets/Game/Metal/Assets/Font
+    AssetType: t:Font
+    FilterAssets: []
+    AssetSrcType: 2
+    ABClassName: IceCake.Framework.AssetBundles.Editor.Processer
+    ABOriginalResPath: 
+  - ABName: metal/prefab
+    ABVariant: ab
+    AssetResPath: Assets/Game/Metal/Assets/UI/Prefab
+    AssetType: t:Prefab
+    FilterAssets: []
+    AssetSrcType: 0
+    ABClassName: IceCake.Framework.AssetBundles.Editor.Processer
+    ABOriginalResPath: 
+  - ABName: metal/texture
+    ABVariant: ab
+    AssetResPath: Assets/Game/Metal/Assets/UI/Texture
+    AssetType: t:Texture2D
+    FilterAssets: []
+    AssetSrcType: 1
+    ABClassName: IceCake.Framework.AssetBundles.Editor.Processer
+    ABOriginalResPath: 

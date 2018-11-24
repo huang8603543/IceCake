@@ -1,6 +1,3 @@
-using IceCake.Framework.AssetBundles.Editor;
-using UnityEditor;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace UnityEditor.AssetBundles
@@ -24,8 +21,8 @@ namespace UnityEditor.AssetBundles
         [SerializeField]
         public AssetBundleBuildTab m_BuildTab;
 
-        //[SerializeField]
-        //public ABPreprocessingTab m_PreprocessingTab;
+        [SerializeField]
+        public AssetBundlePreprocessingTab m_PreprocessingTab;
 
         private Texture2D m_RefreshTexture;
 
@@ -47,9 +44,9 @@ namespace UnityEditor.AssetBundles
             if(m_BuildTab == null)
                 m_BuildTab = new AssetBundleBuildTab();
             m_BuildTab.OnEnable(subPos, this);
-            //if (m_PreprocessingTab == null)
-            //    m_PreprocessingTab = new ABPreprocessingTab();
-            //m_PreprocessingTab.OnEnable(subPos, this);
+            if (m_PreprocessingTab == null)
+                m_PreprocessingTab = new AssetBundlePreprocessingTab();
+            m_PreprocessingTab.OnEnable(subPos, this);
 
             m_RefreshTexture = EditorGUIUtility.FindTexture("Refresh");
         }
@@ -84,9 +81,9 @@ namespace UnityEditor.AssetBundles
 
             switch(m_Mode)
             {
-                //case Mode.Preprocessing:
-                //    m_PreprocessingTab.OnGUI(GetSubWindowArea());
-                //    break;
+                case Mode.Preprocessing:
+                    m_PreprocessingTab.OnGUI(GetSubWindowArea());
+                    break;
                 case Mode.Builder:
                     m_BuildTab.OnGUI(GetSubWindowArea());
                     break;
